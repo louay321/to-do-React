@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ListItem from "./components/ListItem";
+import Footer from "./components/footer";
 
 function App() {
+  const [inputText, setInputText] = useState("");
+  const [items, setItems] = useState([]);
+
+  function handleChange(event) {
+    const newValue = event.target.value;
+    setInputText(newValue);
+  }
+
+  function addItem() {
+    setItems((prevItems) => {
+      return [...prevItems, inputText];
+    });
+    setInputText("");
+  }
+  function deleteItem(id){
+    setItems((prevItems) =>{
+      return prevItems.filter((item, index)=>{
+        return index !== id;
+      })
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="heading">
+        <h1>To-Do React</h1>
+      </div>
+      <div className="form">
+        <input onChange={handleChange} type="text" value={inputText} />
+        <button onClick={addItem}>
+          <span>+</span>
+        </button>
+      </div>
+      <div>
+        <ul>
+          {items.map((todoItem, index) => (
+            <ListItem 
+            key={index}
+            id={index}
+            text={todoItem}
+            onChecked = {deleteItem}          
+             />
+          ))}
+        </ul>
+      </div>
+      <Footer />
     </div>
   );
 }
