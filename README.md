@@ -1,6 +1,7 @@
 # To-do-React
 
 This is a minimal React to-do list project
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
